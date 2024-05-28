@@ -1,10 +1,14 @@
+import { ObjectId, Types } from 'mongoose';
 import config from '../../config';
+import { TAcademicSemester } from '../academicSemester/academicSemester.interface';
+import { AcademicSemester } from '../academicSemester/academicSemester.model';
 import { TStudent } from '../students/student.Interface';
 import { Student } from '../students/student.model';
 import { TUser } from './user.interface';
 import { User } from './user.model';
+import { generateStudentId } from './user.utils';
 
-const createStudentIntoDB = async (password: string, studentData: TStudent) => {
+const createStudentIntoDB = async (password: string, payload: TStudent) => {
   // user object
   const userData: Partial<TUser> = {};
   // error handling
@@ -13,8 +17,11 @@ const createStudentIntoDB = async (password: string, studentData: TStudent) => {
   // set student role
   userData.role = 'student';
 
-  // set manually id generated id
-  userData.id = '2030100001';
+  const admissionSemester: any = await AcademicSemester.findById(
+    payload.admissionSemester,
+  );
+
+  userData.id = await generateStudentId(admissionSemester);
   // create user
 
   const newUser = await User.create(userData);
@@ -22,10 +29,10 @@ const createStudentIntoDB = async (password: string, studentData: TStudent) => {
   // create student
   if (Object.keys(newUser).length) {
     // set id, _id as user
-    studentData.id = newUser.id;
-    studentData.user = newUser._id; // references id
+    payload.id = newUser.id;
+    payload.user = newUser._id; // references id
 
-    const newStudent = await Student.create(studentData);
+    const newStudent = await Student.create(payload);
     return newStudent;
   }
 };

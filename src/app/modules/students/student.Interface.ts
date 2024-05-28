@@ -39,6 +39,7 @@ export type TStudent = {
   presentAddress: string;
   permanentAddress: string;
   isDeleted: boolean;
+  admissionSemester: Types.ObjectId;
 };
 
 // for static methods
