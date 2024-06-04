@@ -1,3 +1,4 @@
+import { AcademicDepartment } from './../academicDepartment/academicDepartment.model';
 import { Schema, model } from 'mongoose';
 
 import {
@@ -143,12 +144,10 @@ const studentSchema = new Schema<TStudent, StudentModel>(
     isDeleted: {
       type: Boolean,
       default: false,
-    },
+    }
   },
   {
-    timestamps: true,
     toJSON: { virtuals: true },
-    toObject: { virtuals: true },
   },
 );
 
