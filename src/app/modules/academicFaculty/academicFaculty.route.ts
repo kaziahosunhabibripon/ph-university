@@ -12,6 +12,7 @@ router.post(
   ),
   AcademicFacultyControllers.createAcademicFaculty,
 );
+
 router.get('/:facultyId', AcademicFacultyControllers.getSingleAcademicFaculty);
 
 router.patch(
@@ -21,6 +22,7 @@ router.patch(
   ),
   AcademicFacultyControllers.updateAcademicFaculty,
 );
+
 router.get('/', AcademicFacultyControllers.getAllAcademicFaculties);
 
 export const AcademicFacultyRoutes = router;

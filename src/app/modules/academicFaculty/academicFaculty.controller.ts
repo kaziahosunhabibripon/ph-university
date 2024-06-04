@@ -4,7 +4,9 @@ import { AcademicFacultyServices } from './academicFaculty.service';
 import cathAsync from '../../utils/catchAsync';
 
 const createAcademicFaculty = cathAsync(async (req, res) => {
-  const result = await AcademicFacultyServices.academicFacultyIntoDB(req.body);
+  const result = await AcademicFacultyServices.createAcademicFacultyIntoDB(
+    req.body,
+  );
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -30,7 +32,7 @@ const getSingleAcademicFaculty = cathAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'Single Academic Faculty data is fetched successfully',
+    message: 'Academic Faculty is fetched successfully',
     data: result,
   });
 });
