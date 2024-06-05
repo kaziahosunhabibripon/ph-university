@@ -3,8 +3,8 @@ import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
 import cathAsync from '../../utils/catchAsync';
 
-const getAllStudents = cathAsync(async (_req, res) => {
-  const result = await StudentServices.getAllStudentsFromDB();
+const getAllStudents = cathAsync(async (req, res) => {
+  const result = await StudentServices.getAllStudentsFromDB(req.query);
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,

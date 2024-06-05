@@ -156,7 +156,9 @@ const studentSchema = new Schema<TStudent, StudentModel>(
 );
 
 // Query middleware
-
+studentSchema.virtual('fullName').get(function () {
+  return this?.name?.firstName + this?.name?.middleName + this?.name?.lastName;
+});
 studentSchema.pre('find', function (next) {
   this.find({ isDeleted: { $ne: true } });
   next();
