@@ -13,8 +13,8 @@ const getAllStudents = cathAsync(async (req, res) => {
   });
 });
 const getSingleStudent = cathAsync(async (req, res) => {
-  const { studentId } = req.params;
-  const result = await StudentServices.getSingleStudentFromDB(studentId);
+  const { id } = req.params;
+  const result = await StudentServices.getSingleStudentFromDB(id);
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -22,20 +22,20 @@ const getSingleStudent = cathAsync(async (req, res) => {
     data: result,
   });
 });
-const updateStudent = cathAsync(async(req,res)=>{
-  const {studentId} = req.params;
-  const { student} = req.body;
-  const result = await StudentServices.updatedStudentFromDB(studentId, student);
-  sendResponse(res,{
+const updateStudent = cathAsync(async (req, res) => {
+  const { id } = req.params;
+  const { student } = req.body;
+  const result = await StudentServices.updatedStudentFromDB(id, student);
+  sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: "Student updated successfully",
-    data: result
-  })
-})
+    message: 'Student updated successfully',
+    data: result,
+  });
+});
 const deleteStudent = cathAsync(async (req, res) => {
-  const { studentId } = req.params;
-  const result = await StudentServices.deleteStudentFromDB(studentId);
+  const { id } = req.params;
+  const result = await StudentServices.deleteStudentFromDB(id);
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
