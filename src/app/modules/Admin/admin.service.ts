@@ -53,7 +53,12 @@ const deleteAdminFromDB = async (id: string) => {
       throw new AppError(httpStatus.BAD_REQUEST, 'Failed to delete user');
     }
     const userId = deletedAdmin.user;
-    const deletedUser = await User.findByIdAndUpdate();
+
+    const deletedUser = await User.findByIdAndUpdate(
+      userId,
+      { isDeleted: true },
+      { new: true, session },
+    );
     if (!deletedUser) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Failed to delete user');
     }
