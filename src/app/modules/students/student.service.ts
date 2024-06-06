@@ -4,8 +4,11 @@ import AppError from '../../errors/AppError';
 import httpStatus from 'http-status';
 import { User } from '../user/user.model';
 import { TStudent } from './student.Interface';
+import QueryBuilder from '../../builder/QueryBuilder';
+import { studentSearchableFields } from './student.constant';
 
 const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
+  /*
   const queryObj = { ...query };
   const studentSearchableFields = ['email', 'name.firstName', 'presentAddress'];
   let searchTerm = '';
@@ -23,7 +26,7 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
   const excludefields = ['searchTerm', 'sort', 'limit', 'page', 'fields'];
 
   excludefields.forEach((el) => delete queryObj[el]);
-  console.log({ query }, { queryObj });
+
   const filterQuery = searchQuery
     .find(queryObj)
     .populate('admissionSemester')
@@ -61,6 +64,27 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
   }
   const fieldQuery = await limitQuery.select(fields);
   return fieldQuery;
+  */
+
+  const studentQuery = new QueryBuilder(
+    Student.find()
+      .populate('admissionSemester')
+      .populate({
+        path: 'academicDepartment',
+        populate: {
+          path: 'academicFaculty',
+        },
+      }),
+    query,
+  )
+    .search(studentSearchableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const result = await studentQuery.modelQuery;
+  return result;
 };
 
 const getSingleStudentFromDB = async (id: string) => {

@@ -14,6 +14,29 @@ const createStudent = cathAsync(async (req, res) => {
   });
 });
 
+const createFaculty = cathAsync(async (req, res) => {
+  const { password, faculty: facultyData } = req.body;
+  const result = await UserService.createFacultyIntoDB(password, facultyData);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Faculty is created successfully',
+    data: result,
+  });
+});
+
+const createAdmin = cathAsync(async (req, res) => {
+  const { password, admin: adminData } = req.body;
+  const result = await UserService.createAdminIntoDB(password, adminData);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Admin is created successfully',
+    data: result,
+  });
+});
 export const UserControllers = {
   createStudent,
+  createFaculty,
+  createAdmin,
 };
