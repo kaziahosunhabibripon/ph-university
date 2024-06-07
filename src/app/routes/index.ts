@@ -40,7 +40,7 @@ const moduleRoutes = [
     route: AdminRoutes,
   },
   {
-    path: '/course',
+    path: '/courses',
     route: CourseRoutes,
   },
 ];

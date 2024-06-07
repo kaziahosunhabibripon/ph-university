@@ -6,7 +6,7 @@ import { CourseValidations } from './course.validation';
 const router = express.Router();
 
 router.post(
-  '/',
+  '/create-course',
   validateRequest(CourseValidations.createCourseValidationSchema),
   CourseControllers.createCourse,
 );
