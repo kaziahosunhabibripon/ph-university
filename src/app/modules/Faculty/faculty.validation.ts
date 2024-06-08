@@ -25,19 +25,19 @@ export const createFacultyValidationSchema = z.object({
       contactNo: z.string(),
       emergencyContactNo: z.string(),
       bloodGroup: z.enum([...BloodGroup] as [string, ...string[]]),
-      presentAddress: z.string().min(3),
-      permanentAddress: z.string().min(3),
+      presentAddress: z.string(),
+      permanentAddress: z.string(),
       academicDepartment: z.string(),
-      academicYear: z.string(),
       profileImg: z.string(),
     }),
   }),
 });
 const updateUserNameValidationSchema = z.object({
-  firstName: z.string().optional(),
+  firstName: z.string().min(1).max(20).optional(),
   middleName: z.string().optional(),
   lastName: z.string().optional(),
 });
+
 export const updateFacultyValidationSchema = z.object({
   body: z.object({
     faculty: z.object({
@@ -45,15 +45,14 @@ export const updateFacultyValidationSchema = z.object({
       name: updateUserNameValidationSchema,
       gender: z.enum([...Gender] as [string, ...string[]]).optional(),
       dateOfBirth: z.string().optional(),
-      email: z.string().optional(),
+      email: z.string().email().optional(),
       contactNo: z.string().optional(),
       emergencyContactNo: z.string().optional(),
       bloodGroup: z.enum([...BloodGroup] as [string, ...string[]]).optional(),
       presentAddress: z.string().optional(),
       permanentAddress: z.string().optional(),
-      academicDepartment: z.string().optional(),
-      academicYear: z.string().optional(),
       profileImg: z.string().optional(),
+      academicDepartment: z.string().optional(),
     }),
   }),
 });

@@ -5,13 +5,12 @@ import { FacultyServices } from './faculty.service';
 
 const getSingleFaculty = cathAsync(async (req, res) => {
   const { id } = req.params;
-
   const result = await FacultyServices.getSingleFacultyFromDB(id);
 
   sendResponse(res, {
-    success: true,
     statusCode: httpStatus.OK,
-    message: 'Faculty is fetched successfully',
+    success: true,
+    message: 'Faculty is retrieved successfully',
     data: result,
   });
 });

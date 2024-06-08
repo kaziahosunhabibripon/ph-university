@@ -51,6 +51,34 @@ const deleteCourse = cathAsync(async (req, res) => {
     data: result,
   });
 });
+const assignFacultiesWithCourse = cathAsync(async (req, res) => {
+  const { courseId } = req.params;
+  const { faculties } = req.body;
+  const result = await CourseServices.assignFacultiesWithCourseIntoDB(
+    courseId,
+    faculties,
+  );
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Course faculties assign successfully',
+    data: result,
+  });
+});
+const removeFacultiesWithCourse = cathAsync(async (req, res) => {
+  const { courseId } = req.params;
+  const { faculties } = req.body;
+  const result = await CourseServices.removeFacultiesFromCourseFromDB(
+    courseId,
+    faculties,
+  );
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Course faculties remove successfully',
+    data: result,
+  });
+});
 
 export const CourseControllers = {
   createCourse,
@@ -58,4 +86,6 @@ export const CourseControllers = {
   getSingleCourse,
   deleteCourse,
   updateCourse,
+  assignFacultiesWithCourse,
+  removeFacultiesWithCourse,
 };
