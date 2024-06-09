@@ -31,12 +31,17 @@ const getSingleOfferedCourse = cathAsync(async (req, res) => {
   });
 });
 const updateOfferedCourse = cathAsync(async (req, res) => {
-  sendResponse(res, {
-    success: true,
-    statusCode: httpStatus.OK,
-    message: 'Offered Course Created Successfully',
-    data: req.body,
-  });
+    const { id } = req.params;
+    const result = await OfferedCourseServices.updateOfferedCourseIntoDB(
+      id,
+      req.body,
+    );
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'Offered Course updated Successfully',
+      data: result,
+    });
 });
 const deleteOfferedCourse = cathAsync(async (req, res) => {
   sendResponse(res, {
