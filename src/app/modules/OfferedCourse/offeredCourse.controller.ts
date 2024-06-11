@@ -1,9 +1,9 @@
 import httpStatus from 'http-status';
-import cathAsync from '../../utils/catchAsync';
+import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { OfferedCourseServices } from './offeredCourse.service';
 
-const createOfferedCourse = cathAsync(async (req, res) => {
+const createOfferedCourse = catchAsync(async (req, res) => {
   const result = await OfferedCourseServices.createOfferedCourseIntoDB(
     req.body,
   );
@@ -14,7 +14,7 @@ const createOfferedCourse = cathAsync(async (req, res) => {
     data: result,
   });
 });
-const getAllOfferedCourse = cathAsync(async (req, res) => {
+const getAllOfferedCourse = catchAsync(async (req, res) => {
   const result = await OfferedCourseServices.getALLOfferedCourseIntoDB(
     req.query,
   );
@@ -25,7 +25,7 @@ const getAllOfferedCourse = cathAsync(async (req, res) => {
     data: result,
   });
 });
-const getSingleOfferedCourse = cathAsync(async (req, res) => {
+const getSingleOfferedCourse = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await OfferedCourseServices.getSingleOfferedCourseIntoDB(id);
   sendResponse(res, {
@@ -35,7 +35,7 @@ const getSingleOfferedCourse = cathAsync(async (req, res) => {
     data: result,
   });
 });
-const updateOfferedCourse = cathAsync(async (req, res) => {
+const updateOfferedCourse = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await OfferedCourseServices.updateOfferedCourseIntoDB(
     id,
@@ -48,7 +48,7 @@ const updateOfferedCourse = cathAsync(async (req, res) => {
     data: result,
   });
 });
-const deleteOfferedCourse = cathAsync(async (req, res) => {
+const deleteOfferedCourse = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await OfferedCourseServices.deleteOfferedCourseFromDB(id);
 

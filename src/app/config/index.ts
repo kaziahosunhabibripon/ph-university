@@ -8,4 +8,5 @@ export default {
   database: process.env.DB_URL,
   bcryptSaltRounds: process.env.BCRYPT_SALT_ROUNDS,
   default_password: process.env.DEFAULT_PASS,
+  jwt_secret: process.env.JWT_ACCESS_TOKEN,
 };

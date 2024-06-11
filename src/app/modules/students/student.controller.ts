@@ -1,9 +1,9 @@
 import { StudentServices } from './student.service';
 import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
-import cathAsync from '../../utils/catchAsync';
+import catchAsync from '../../utils/catchAsync';
 
-const getAllStudents = cathAsync(async (req, res) => {
+const getAllStudents = catchAsync(async (req, res) => {
   const result = await StudentServices.getAllStudentsFromDB(req.query);
   sendResponse(res, {
     success: true,
@@ -12,7 +12,7 @@ const getAllStudents = cathAsync(async (req, res) => {
     data: result,
   });
 });
-const getSingleStudent = cathAsync(async (req, res) => {
+const getSingleStudent = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await StudentServices.getSingleStudentFromDB(id);
   sendResponse(res, {
@@ -22,7 +22,7 @@ const getSingleStudent = cathAsync(async (req, res) => {
     data: result,
   });
 });
-const updateStudent = cathAsync(async (req, res) => {
+const updateStudent = catchAsync(async (req, res) => {
   const { id } = req.params;
   const { student } = req.body;
   const result = await StudentServices.updatedStudentFromDB(id, student);
@@ -33,7 +33,7 @@ const updateStudent = cathAsync(async (req, res) => {
     data: result,
   });
 });
-const deleteStudent = cathAsync(async (req, res) => {
+const deleteStudent = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await StudentServices.deleteStudentFromDB(id);
   sendResponse(res, {

@@ -1,9 +1,9 @@
 import httpStatus from 'http-status';
-import cathAsync from '../../utils/catchAsync';
+import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { FacultyServices } from './faculty.service';
 
-const getSingleFaculty = cathAsync(async (req, res) => {
+const getSingleFaculty = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await FacultyServices.getSingleFacultyFromDB(id);
 
@@ -15,7 +15,7 @@ const getSingleFaculty = cathAsync(async (req, res) => {
   });
 });
 
-const getAllFaculties = cathAsync(async (req, res) => {
+const getAllFaculties = catchAsync(async (req, res) => {
   const result = await FacultyServices.getAllFacultiesFromDB(req.query);
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -25,7 +25,7 @@ const getAllFaculties = cathAsync(async (req, res) => {
   });
 });
 
-const updateFaculty = cathAsync(async (req, res) => {
+const updateFaculty = catchAsync(async (req, res) => {
   const { id } = req.params;
   const { faculty } = req.body;
   const result = await FacultyServices.updateFacultyIntoDB(id, faculty);
@@ -37,7 +37,7 @@ const updateFaculty = cathAsync(async (req, res) => {
   });
 });
 
-const deleteFaculty = cathAsync(async (req, res) => {
+const deleteFaculty = catchAsync(async (req, res) => {
   const { id } = req.params;
 
   const result = await FacultyServices.deleteFacultyFromDB(id);

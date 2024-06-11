@@ -1,9 +1,9 @@
 import { UserService } from './user.service';
 import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
-import cathAsync from '../../utils/catchAsync';
+import catchAsync from '../../utils/catchAsync';
 
-const createStudent = cathAsync(async (req, res) => {
+const createStudent = catchAsync(async (req, res) => {
   const { password, student: studentData } = req.body;
   const result = await UserService.createStudentIntoDB(password, studentData);
   sendResponse(res, {
@@ -14,7 +14,7 @@ const createStudent = cathAsync(async (req, res) => {
   });
 });
 
-const createFaculty = cathAsync(async (req, res) => {
+const createFaculty = catchAsync(async (req, res) => {
   const { password, faculty: facultyData } = req.body;
   const result = await UserService.createFacultyIntoDB(password, facultyData);
   sendResponse(res, {
@@ -25,7 +25,7 @@ const createFaculty = cathAsync(async (req, res) => {
   });
 });
 
-const createAdmin = cathAsync(async (req, res) => {
+const createAdmin = catchAsync(async (req, res) => {
   const { password, admin: adminData } = req.body;
   const result = await UserService.createAdminIntoDB(password, adminData);
   sendResponse(res, {

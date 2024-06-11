@@ -1,9 +1,9 @@
 import httpStatus from 'http-status';
-import cathAsync from '../../utils/catchAsync';
+import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { CourseServices } from './course.service';
 
-const createCourse = cathAsync(async (req, res) => {
+const createCourse = catchAsync(async (req, res) => {
   const result = await CourseServices.createCourseIntoDB(req.body);
   sendResponse(res, {
     success: true,
@@ -12,7 +12,7 @@ const createCourse = cathAsync(async (req, res) => {
     data: result,
   });
 });
-const getAllCourses = cathAsync(async (req, res) => {
+const getAllCourses = catchAsync(async (req, res) => {
   const result = await CourseServices.getAllCoursesFromDB(req.query);
   sendResponse(res, {
     success: true,
@@ -21,7 +21,7 @@ const getAllCourses = cathAsync(async (req, res) => {
     data: result,
   });
 });
-const getSingleCourse = cathAsync(async (req, res) => {
+const getSingleCourse = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await CourseServices.getSingleCourseFromDB(id);
   sendResponse(res, {
@@ -31,7 +31,7 @@ const getSingleCourse = cathAsync(async (req, res) => {
     data: result,
   });
 });
-const updateCourse = cathAsync(async (req, res) => {
+const updateCourse = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await CourseServices.updateCourseIntoDB(id, req.body);
   sendResponse(res, {
@@ -41,7 +41,7 @@ const updateCourse = cathAsync(async (req, res) => {
     data: result,
   });
 });
-const deleteCourse = cathAsync(async (req, res) => {
+const deleteCourse = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await CourseServices.deleteCourseFromDB(id);
   sendResponse(res, {
@@ -51,7 +51,7 @@ const deleteCourse = cathAsync(async (req, res) => {
     data: result,
   });
 });
-const assignFacultiesWithCourse = cathAsync(async (req, res) => {
+const assignFacultiesWithCourse = catchAsync(async (req, res) => {
   const { courseId } = req.params;
   const { faculties } = req.body;
   const result = await CourseServices.assignFacultiesWithCourseIntoDB(
@@ -65,7 +65,7 @@ const assignFacultiesWithCourse = cathAsync(async (req, res) => {
     data: result,
   });
 });
-const removeFacultiesWithCourse = cathAsync(async (req, res) => {
+const removeFacultiesWithCourse = catchAsync(async (req, res) => {
   const { courseId } = req.params;
   const { faculties } = req.body;
   const result = await CourseServices.removeFacultiesFromCourseFromDB(

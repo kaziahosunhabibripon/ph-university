@@ -20,7 +20,8 @@ const userNameSchema = new Schema<TUserName>({
     maxlength: [20, 'Name can not be more than 20 characters'],
   },
 });
-const adminSchema = new Schema<TAdmin>(
+
+const adminSchema = new Schema<TAdmin, AdminModel>(
   {
     id: {
       type: String,
@@ -49,21 +50,16 @@ const adminSchema = new Schema<TAdmin>(
       },
       required: [true, 'Gender is required'],
     },
-    dateOfBirth: {
-      type: Date,
-    },
+    dateOfBirth: { type: Date },
     email: {
       type: String,
       required: [true, 'Email is required'],
       unique: true,
     },
-    contactNo: {
-      type: String,
-      required: [true, 'Contact No is required'],
-    },
+    contactNo: { type: String, required: [true, 'Contact number is required'] },
     emergencyContactNo: {
       type: String,
-      required: [true, 'Emergency Contact No is required'],
+      required: [true, 'Emergency contact number is required'],
     },
     bloodGroup: {
       type: String,
@@ -81,11 +77,6 @@ const adminSchema = new Schema<TAdmin>(
       required: [true, 'Permanent address is required'],
     },
     profileImg: { type: String },
-    academicDepartment: {
-      type: Schema.Types.ObjectId,
-      required: [true, 'User id is required'],
-      ref: 'User',
-    },
     isDeleted: {
       type: Boolean,
       default: false,
@@ -97,6 +88,7 @@ const adminSchema = new Schema<TAdmin>(
     },
   },
 );
+
 
 adminSchema.virtual('fullName').get(function () {
   return (

@@ -1,9 +1,9 @@
 import httpStatus from 'http-status';
 import sendResponse from '../../utils/sendResponse';
 import { AcademicFacultyServices } from './academicFaculty.service';
-import cathAsync from '../../utils/catchAsync';
+import catchAsync from '../../utils/catchAsync';
 
-const createAcademicFaculty = cathAsync(async (req, res) => {
+const createAcademicFaculty = catchAsync(async (req, res) => {
   const result = await AcademicFacultyServices.createAcademicFacultyIntoDB(
     req.body,
   );
@@ -15,7 +15,7 @@ const createAcademicFaculty = cathAsync(async (req, res) => {
   });
 });
 
-const getAllAcademicFaculties = cathAsync(async (req, res) => {
+const getAllAcademicFaculties = catchAsync(async (req, res) => {
   const result = await AcademicFacultyServices.getAllAcademicFacultiesFromDB();
   sendResponse(res, {
     success: true,
@@ -25,7 +25,7 @@ const getAllAcademicFaculties = cathAsync(async (req, res) => {
   });
 });
 
-const getSingleAcademicFaculty = cathAsync(async (req, res) => {
+const getSingleAcademicFaculty = catchAsync(async (req, res) => {
   const { facultyId } = req.params;
   const result =
     await AcademicFacultyServices.getSingleAcademicFacultyFromDB(facultyId);
@@ -37,7 +37,7 @@ const getSingleAcademicFaculty = cathAsync(async (req, res) => {
   });
 });
 
-const updateAcademicFaculty = cathAsync(async (req, res) => {
+const updateAcademicFaculty = catchAsync(async (req, res) => {
   const { facultyId } = req.params;
   const result = await AcademicFacultyServices.updateAcademicFacultyIntoDB(
     facultyId,
