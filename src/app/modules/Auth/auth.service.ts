@@ -6,6 +6,8 @@ import config from '../../config';
 import bcrypt from 'bcrypt';
 import { createToken } from './auth.utils';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { USER_STATUS } from '../user/user.constants';
+import { sendEmail } from '../../utils/sendEmail';
 const loginUser = async (payload: TLoginUser) => {
   // checking if the user exists or not
   const user = await User.isUserExistsByCustomId(payload.id);
@@ -23,7 +25,7 @@ const loginUser = async (payload: TLoginUser) => {
   // checking user is blocked or not
   const userStatus = user?.status;
 
-  if (userStatus === 'blocked') {
+  if (userStatus === USER_STATUS.blocked) {
     throw new AppError(httpStatus.FORBIDDEN, 'User is blocked !');
   }
 
@@ -127,7 +129,7 @@ const refreshToken = async (token: string) => {
   // checking user is blocked or not
   const userStatus = user?.status;
 
-  if (userStatus === 'blocked') {
+  if (userStatus === USER_STATUS.blocked) {
     throw new AppError(httpStatus.FORBIDDEN, 'User is blocked !');
   }
 
@@ -151,8 +153,37 @@ const refreshToken = async (token: string) => {
     accessToken,
   };
 };
+
+const forgetPassword = async (userId: string) => {
+  const user = await User.isUserExistsByCustomId(userId);
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
+  }
+  const isDeleted = user?.isDeleted;
+  if (isDeleted) {
+    throw new AppError(httpStatus.FORBIDDEN, 'This user is deleted !');
+  }
+  const userStatus = user?.status;
+  if (userStatus === USER_STATUS.blocked) {
+    throw new AppError(httpStatus.FORBIDDEN, 'This user is blocked !');
+  }
+  const jwtPayload = {
+    userId: user.id,
+    role: user.role,
+  };
+  const resetToken = createToken(
+    jwtPayload,
+    config.jwt_access_secret as string,
+    '10m',
+  );
+  const resetUILink = `${config.reset_pass_link}?id=${userId}&token=${resetToken}`;
+
+  sendEmail(user.email, resetUILink);
+  console.log(resetUILink);
+};
 export const AuthServices = {
   loginUser,
   changePassword,
   refreshToken,
+  forgetPassword,
 };

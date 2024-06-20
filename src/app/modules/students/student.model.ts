@@ -1,4 +1,3 @@
-import { AcademicDepartment } from './../academicDepartment/academicDepartment.model';
 import { Schema, model } from 'mongoose';
 
 import {

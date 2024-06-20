@@ -26,8 +26,8 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
   userData.password = password || (config.default_password as string);
   // set student role
   userData.role = 'student';
-
-  const admissionSemester: any = await AcademicSemester.findById(
+  userData.email = payload.email;
+  const admissionSemester = await AcademicSemester.findById(
     payload.admissionSemester,
   );
   if (!admissionSemester) {
@@ -57,10 +57,10 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
     await session.commitTransaction();
     await session.endSession();
     return newStudent;
-  } catch (error: any) {
+  } catch (error) {
     await session.abortTransaction();
     await session.endSession();
-    throw new Error(error.message);
+    throw new Error(error);
   }
 };
 
@@ -69,7 +69,7 @@ const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
   userData.password = password || (config.default_password as string);
 
   userData.role = 'faculty';
-
+  userData.email = payload.email;
   const academicDepartment = await AcademicDepartment.findById(
     payload.academicDepartment,
   );
@@ -98,10 +98,10 @@ const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
     await session.commitTransaction();
     await session.endSession();
     return newFaculty;
-  } catch (error: any) {
+  } catch (error) {
     await session.abortTransaction();
     await session.endSession();
-    throw new Error(error.message);
+    throw new Error(error);
   }
 };
 const createAdminIntoDB = async (password: string, payload: TAdmin) => {
@@ -109,7 +109,7 @@ const createAdminIntoDB = async (password: string, payload: TAdmin) => {
   userData.password = password || (config.default_password as string);
 
   userData.role = 'admin';
-
+  userData.email = payload.email;
   const session = await mongoose.startSession();
 
   try {
@@ -131,10 +131,10 @@ const createAdminIntoDB = async (password: string, payload: TAdmin) => {
     await session.commitTransaction();
     await session.endSession();
     return newAdmin;
-  } catch (error: any) {
+  } catch (error) {
     await session.abortTransaction();
     await session.endSession();
-    throw new Error(error.message);
+    throw new Error(error);
   }
 };
 export const UserService = {
