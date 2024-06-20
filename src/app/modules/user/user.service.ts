@@ -57,7 +57,7 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
     await session.commitTransaction();
     await session.endSession();
     return newStudent;
-  } catch (error) {
+  } catch (error: any) {
     await session.abortTransaction();
     await session.endSession();
     throw new Error(error);
@@ -98,7 +98,7 @@ const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
     await session.commitTransaction();
     await session.endSession();
     return newFaculty;
-  } catch (error) {
+  } catch (error: any) {
     await session.abortTransaction();
     await session.endSession();
     throw new Error(error);
@@ -131,7 +131,7 @@ const createAdminIntoDB = async (password: string, payload: TAdmin) => {
     await session.commitTransaction();
     await session.endSession();
     return newAdmin;
-  } catch (error) {
+  } catch (error: any) {
     await session.abortTransaction();
     await session.endSession();
     throw new Error(error);
