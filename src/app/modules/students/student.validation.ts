@@ -2,9 +2,9 @@ import { z } from 'zod';
 
 // Define Zod schema for user name
 const createUserNameValidationSchema = z.object({
-  firstName: z.string().min(3).max(25),
-  middleName: z.string().min(3).max(25),
-  lastName: z.string().min(3).max(25),
+  firstName: z.string().max(25),
+  middleName: z.string().max(25).optional(),
+  lastName: z.string().max(25).optional(),
 });
 
 // Define Zod schema for guardian
@@ -28,7 +28,7 @@ const createLocalGuardianValidationSchema = z.object({
 // Define Zod schema for student
 export const createStudentValidationSchema = z.object({
   body: z.object({
-    password: z.string().max(20),
+    password: z.string().max(20).optional(),
     student: z.object({
       name: createUserNameValidationSchema,
       gender: z.enum(['male', 'female', 'other']),
@@ -42,7 +42,7 @@ export const createStudentValidationSchema = z.object({
       guardian: createGuardianValidationSchema,
       admissionSemester: z.string(),
       localGuardian: createLocalGuardianValidationSchema,
-      profilePic: z.string(),
+      // profilePic: z.string(),
       academicDepartment: z.string(),
     }),
   }),

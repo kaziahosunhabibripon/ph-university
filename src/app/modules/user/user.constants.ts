@@ -5,8 +5,4 @@ export const USER_ROLE = {
 } as const;
 
 
-export const USER_STATUS = {
-  active: 'active',
-  inprogress: 'in-progress',
-  blocked: 'blocked',
-};
+export const USER_STATUS = ['in-progress', 'blocked'];

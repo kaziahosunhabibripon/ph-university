@@ -13,4 +13,7 @@ export default {
   jwt_refresh_secret: process.env.JWT_REFRESH_TOKEN,
   jwt_refresh_expires: process.env.JWT_REFRESH_EXPIRES_IN,
   reset_pass_link: process.env.RESET_PASS_UI_LINK,
+  cloud: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
 };

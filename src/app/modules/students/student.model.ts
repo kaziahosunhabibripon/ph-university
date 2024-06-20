@@ -17,7 +17,6 @@ const userSchema = new Schema<TUserName>({
   },
   middleName: {
     type: String,
-    required: [true, 'Middle Name is required'],
     maxlength: [25, 'First Name must be less than 25 characters'],
     trim: true,
   },
@@ -156,7 +155,13 @@ const studentSchema = new Schema<TStudent, StudentModel>(
 
 // Query middleware
 studentSchema.virtual('fullName').get(function () {
-  return this?.name?.firstName + this?.name?.middleName + this?.name?.lastName;
+  return (
+    this?.name?.firstName +
+    ' ' +
+    this?.name?.middleName +
+    ' ' +
+    this?.name?.lastName
+  );
 });
 studentSchema.pre('find', function (next) {
   this.find({ isDeleted: { $ne: true } });

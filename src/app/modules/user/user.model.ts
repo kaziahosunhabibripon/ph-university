@@ -2,6 +2,7 @@ import { model, Schema } from 'mongoose';
 import { IUser, UserModel } from './user.interface';
 import config from '../../config';
 import bcrypt from 'bcrypt';
+import { USER_STATUS } from './user.constants';
 const userSchema = new Schema<IUser, UserModel>(
   {
     id: {
@@ -41,10 +42,7 @@ const userSchema = new Schema<IUser, UserModel>(
     },
     status: {
       type: String,
-      enum: {
-        values: ['in-progress', 'blocked'],
-        message: '{VALUE} is not a valid status',
-      },
+      enum: USER_STATUS,
       default: 'in-progress',
     },
   },

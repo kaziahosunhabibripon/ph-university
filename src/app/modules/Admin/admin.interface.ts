@@ -31,7 +31,7 @@ export type TAdmin = {
   bloodGroup?: TBloodGroup;
   presentAddress: string;
   permanentAddress: string;
-  profileImg?: string;
+  profilePic?: string;
   isDeleted: boolean;
 };
 
