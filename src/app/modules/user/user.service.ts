@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-nocheck
 import mongoose from 'mongoose';
 import config from '../../config';
 import { AcademicDepartment } from './../academicDepartment/academicDepartment.model';
@@ -49,6 +47,8 @@ const createStudentIntoDB = async (
     // send image cloudinary
     const path = file?.path;
     const imageName = `${userData.id}${payload?.name?.firstName}`;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const { secure_url } = await sendImageToCloudinary(imageName, path);
     // create user
 
@@ -103,7 +103,8 @@ const createFacultyIntoDB = async (
     // send image cloudinary
     const path = file?.path;
     const imageName = `${userData.id}${payload?.name?.firstName}`;
-
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const { secure_url } = await sendImageToCloudinary(imageName, path);
     const newUser = await User.create([userData], { session });
     if (!newUser.length) {
@@ -144,6 +145,8 @@ const createAdminIntoDB = async (
     userData.id = await generateAdminId();
     const path = file?.path;
     const imageName = `${userData.id}${payload?.name?.firstName}`;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const { secure_url } = await sendImageToCloudinary(imageName, path);
     const newUser = await User.create([userData], { session });
     if (!newUser.length) {
