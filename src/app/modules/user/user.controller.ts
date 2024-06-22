@@ -3,7 +3,6 @@ import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 
-
 const createStudent = catchAsync(async (req, res) => {
   const { password, student: studentData } = req.body;
   const result = await UserService.createStudentIntoDB(
@@ -61,7 +60,6 @@ const getMe = catchAsync(async (req, res) => {
 });
 const changeStatus = catchAsync(async (req, res) => {
   const id = req.params.id;
-
   const result = await UserService.changeStatus(id, req.body);
   sendResponse(res, {
     success: true,

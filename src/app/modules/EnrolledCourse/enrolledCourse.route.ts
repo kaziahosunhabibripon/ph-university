@@ -22,7 +22,7 @@ router.get(
 );
 router.patch(
   '/update-enrolled-course-marks',
-  auth(USER_ROLE.faculty),
+  auth(USER_ROLE.faculty, USER_ROLE.admin, USER_ROLE.superAdmin),
   validateRequest(
     EnrolledCourseValidation.updateEnrolledCourseValidationSchema,
   ),

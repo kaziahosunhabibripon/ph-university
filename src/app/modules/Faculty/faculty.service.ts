@@ -17,7 +17,6 @@ const getAllFacultiesFromDB = async (query: Record<string, unknown>) => {
     .sort()
     .paginate()
     .fields();
-
   const result = await facultyQuery.modelQuery;
   return result;
 };
