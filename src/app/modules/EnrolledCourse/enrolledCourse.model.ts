@@ -1,27 +1,43 @@
 import { Grade } from './enrolledCourse.constants';
-import { TCourseMarks, TEnrolledCourse } from './enrolledCourse.interface';
+import {
+  TEnrolledCourse,
+  TEnrolledCourseMarks,
+} from './enrolledCourse.interface';
 import { model, Schema } from 'mongoose';
 
-const courseMarksSchema = new Schema<TCourseMarks>({
-  classTest1: {
-    type: Number,
-    default: 0,
+const courseMarksSchema = new Schema<TEnrolledCourseMarks>(
+  {
+    classTest1: {
+      type: Number,
+      min: 0,
+      max: 10,
+      default: 0,
+    },
+    midTerm: {
+      type: Number,
+      min: 0,
+      max: 30,
+      default: 0,
+    },
+    classTest2: {
+      type: Number,
+      min: 0,
+      max: 10,
+      default: 0,
+    },
+    finalTerm: {
+      type: Number,
+      min: 0,
+      max: 50,
+      default: 0,
+    },
   },
-  midTerm: {
-    type: Number,
-    default: 0,
+  {
+    _id: false,
   },
-  classTest2: {
-    type: Number,
-    default: 0,
-  },
-  finalTerm: {
-    type: Number,
-    default: 0,
-  },
-});
+);
 
-export const enrolledCourseSchema = new Schema<TEnrolledCourse>({
+const enrolledCourseSchema = new Schema<TEnrolledCourse>({
   semesterRegistration: {
     type: Schema.Types.ObjectId,
     ref: 'SemesterRegistration',
@@ -32,14 +48,14 @@ export const enrolledCourseSchema = new Schema<TEnrolledCourse>({
     ref: 'AcademicSemester',
     required: true,
   },
-  academicDepartment: {
-    type: Schema.Types.ObjectId,
-    ref: 'AcademicDepartment',
-    required: true,
-  },
   academicFaculty: {
     type: Schema.Types.ObjectId,
     ref: 'AcademicFaculty',
+    required: true,
+  },
+  academicDepartment: {
+    type: Schema.Types.ObjectId,
+    ref: 'AcademicDepartment',
     required: true,
   },
   offeredCourse: {
@@ -66,7 +82,10 @@ export const enrolledCourseSchema = new Schema<TEnrolledCourse>({
     type: Boolean,
     default: false,
   },
-  courseMarks: { type: courseMarksSchema },
+  courseMarks: {
+    type: courseMarksSchema,
+    default: {},
+  },
   grade: {
     type: String,
     enum: Grade,
@@ -74,16 +93,18 @@ export const enrolledCourseSchema = new Schema<TEnrolledCourse>({
   },
   gradePoints: {
     type: Number,
-    default: 0,
     min: 0,
     max: 4,
+    default: 0,
   },
   isCompleted: {
     type: Boolean,
     default: false,
   },
 });
+
 export const EnrolledCourse = model<TEnrolledCourse>(
   'EnrolledCourse',
   enrolledCourseSchema,
 );
+
