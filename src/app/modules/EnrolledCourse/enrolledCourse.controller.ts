@@ -13,7 +13,7 @@ const createEnrolledCourse = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'Enrolled Course is created successfully',
+    message: 'Student is Enrolled Course successfully',
     data: result,
   });
 });
@@ -43,7 +43,7 @@ const getMyEnrolledCourses = catchAsync(async (req, res) => {
     statusCode: httpStatus.OK,
     message: 'Enrolled courses are retrieved successfully',
     meta: result.meta,
-    data: result,
+    data: result.result,
   });
 });
 export const EnrolledCourseControllers = {

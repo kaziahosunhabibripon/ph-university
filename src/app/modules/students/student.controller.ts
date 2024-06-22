@@ -9,7 +9,8 @@ const getAllStudents = catchAsync(async (req, res) => {
     success: true,
     statusCode: httpStatus.OK,
     message: 'Students fetched successfully',
-    data: result,
+    meta: result.meta,
+    data: result.result,
   });
 });
 const getSingleStudent = catchAsync(async (req, res) => {

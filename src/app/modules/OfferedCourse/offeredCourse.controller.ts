@@ -22,18 +22,23 @@ const getAllOfferedCourse = catchAsync(async (req, res) => {
     success: true,
     statusCode: httpStatus.OK,
     message: 'All Offered Course retrieved  Successfully',
-    data: result,
+    meta: result.meta,
+    data: result.result,
   });
 });
 
 const getMyOfferedCourse = catchAsync(async (req, res) => {
   const userId = req.user.userId;
-  const result = await OfferedCourseServices.getMyOfferedCourseFormDB(userId);
+  const result = await OfferedCourseServices.getMyOfferedCourseFormDB(
+    userId,
+    req.query,
+  );
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
     message: 'Get All My Offered Course retrieved  Successfully',
-    data: result,
+    meta: result.meta,
+    data: result.result,
   });
 });
 const getSingleOfferedCourse = catchAsync(async (req, res) => {
